@@ -13,15 +13,17 @@ public class DriverInitializer {
 
     public static WebDriver initializeDriver() {
         if (driver == null) {
-            Path driverPath = Paths.get("src", "test", "resources", "drivers", "chromedriver.exe");
-            System.setProperty("webdriver.chrome.driver", driverPath.toAbsolutePath().toString());
+            String osName = System.getProperty("os.name").toLowerCase();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
-            String osName = System.getProperty("os.name").toLowerCase();
-            if (osName.contains("linux")) {
+
+            if (osName.contains("win")) {
+                Path driverPath = Paths.get("src", "test", "resources", "drivers", "chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", driverPath.toAbsolutePath().toString());
+            } else (osName.contains("linux")) {
+                System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
                 options.addArguments("--headless");
             }
-
             driver = new ChromeDriver(options);
         }
         return driver;
