@@ -12,8 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    # Chrome configuration for the pre-job stage
     - name: Set up Chrome and Chromedriver
       run: |
         sudo apt-get update -qq -y
